@@ -10,21 +10,39 @@
   </head>
 
   <body>
-    <button>1</button><button>2</button>
+    <!-- <audio controls>
+      <source src="audio/drip.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> -->
+    <audio controls>
+      <source src="audio/egg.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <button data-attribute="1">1</button><button data-attribute="2">2</button>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
     <script>
       $(function () {
         var socket = io();
-        // $('form').submit(function(){
-        //   socket.emit('chat message', $('#m').val());
-        //   $('#m').val('');
-        //   return false;
-        // });
+
+        $(document).keyup(function(e){
+          console.log(e);
+          if (65 == e.keyCode) {
+            socket.emit('chat message', 'A');
+
+          } else if (83 == e.keyCode) {
+            socket.emit('chat message', 'S');
+
+          } else if (68 == e.keyCode) {
+            socket.emit('chat message', 'D');
+          }
+        });
+
         $('button').click(function(){
           socket.emit('chat message', $(this).html());
         });
